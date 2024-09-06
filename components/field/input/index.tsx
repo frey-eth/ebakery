@@ -25,16 +25,24 @@ const InputField = ({
         {label}
         {required && <span className=" text-red-500 font-bold text-lg">*</span>}
       </label>
-      <input
-        type={inputType}
-        className="w-full bg-transparent border border-white p-2 text-white text-lg"
-        placeholder={placeholder}
-        onChange={(value) => {
-          if (onChange) {
-            onChange(value);
-          }
-        }}
-      />
+      <div className="flex flex-row w-full border border-white p-2 text-white text-lg gap-1">
+        <input
+          type={inputType}
+          min={"0"}
+          className="w-full bg-transparent border-none outline-none appearance-none"
+          placeholder={placeholder}
+          onChange={(value) => {
+            if (onChange) {
+              onChange(value);
+            }
+          }}
+        />
+        {suffix && (
+          <span className="text-white text-lg bg-white/50 border-l px-2">
+            {suffix}
+          </span>
+        )}
+      </div>
 
       <p className="text-white/60  text-sm tracking-widest">{description}</p>
     </div>

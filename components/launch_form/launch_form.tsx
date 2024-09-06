@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../field/input";
 
 const LaunchForm = () => {
+  const [tokenSymbol, setTokenSymbol] = useState();
   return (
     <form action="" className="flex flex-col gap-3 px-12">
       <div className="flex flex-row gap-6">
@@ -21,6 +22,7 @@ const LaunchForm = () => {
             description="The shorthand symbol (e.g. ETH)"
             placeholder="Enter symbol"
             required={true}
+            onChange={(e) => setTokenSymbol(e.target.value)}
           />
         </div>
       </div>
@@ -30,6 +32,7 @@ const LaunchForm = () => {
         placeholder="Enter symbol"
         inputType="number"
         required={true}
+        suffix={tokenSymbol}
       />
 
       <div className="flex flex-row justify-end">

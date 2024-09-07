@@ -19,6 +19,27 @@
   box-sizing: border-box;
 }
 
+@keyframes color-change {
+  0% {
+    color: #10b981; /* Green */
+  }
+  25% {
+    color: #f97316; /* Orange */
+  }
+  50% {
+    color: #3b82f6; /* Blue */
+  }
+  75% {
+    color: #ec4899; /* Pink */
+  }
+  100% {
+    color: #10b981; /* Green */
+  }
+}
+.animate-color-change {
+  animation: color-change 3s infinite;
+}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;

@@ -16,11 +16,11 @@ const Header = () => {
             <Image src={logo_image} alt="logo" objectFit="cover" />
           </div>
 
-          <p className=" font-acarde text-2xl animate-color-change">eBakery</p>
+          <p className=" font-acarde lg:text-2xl text-lg animate-color-change">eBakery</p>
         </div>
 
         <button
-          className="px-3 text-[20px] py-2 border tracking-wider whitespace-nowrap"
+          className="lg:px-3 px-2 lg:text-[20px] lg:py-2 border tracking-wider whitespace-nowrap"
           onClick={() => open()}
         >
           {isConnected

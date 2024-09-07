@@ -1,7 +1,10 @@
 import React from "react";
 
 type InputFieldProps = {
+  register?: any;
+  name: string;
   label: string;
+  defaultValue?: string;
   placeholder: string;
   description: string;
   onChange?: (e: any) => void;
@@ -11,8 +14,11 @@ type InputFieldProps = {
 };
 
 const InputField = ({
+  register,
+  name,
   label,
   placeholder,
+  defaultValue,
   description,
   onChange,
   suffix,
@@ -27,8 +33,10 @@ const InputField = ({
       </label>
       <div className="flex flex-row w-full border border-white p-2 text-white text-lg gap-1">
         <input
+          {...(register && register(name))}
           type={inputType}
           min={"0"}
+          defaultValue={defaultValue}
           className="w-full bg-transparent border-none outline-none appearance-none"
           placeholder={placeholder}
           onChange={(value) => {

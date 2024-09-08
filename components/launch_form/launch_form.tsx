@@ -9,7 +9,6 @@ import { useWriteContract } from "wagmi";
 import contract_abi from "@/contract/bakery_abi.json";
 import { Address, parseEther, parseUnits } from "viem";
 import toast from "react-hot-toast";
-import { useEstimateGas } from "wagmi";
 
 interface LaunchFormProps {
   tokenName: string;
@@ -38,7 +37,7 @@ const schema = yup.object().shape({
     .required("Initial Market Cap is required"),
   upperMarketCap: yup
     .number()
-    .min(1, "Upper Market Cap must be at least 1 ETH")
+    .min(0, "Upper Market Cap must be at least 1 ETH")
     .required("Upper Market Cap is required"),
   creatorFeePercent: yup
     .number()
@@ -71,10 +70,11 @@ const LaunchForm = () => {
     }
   }, [isSuccess]);
   const onSubmit = async (data: LaunchFormProps) => {
+    console.log(data);
     writeContract({
       chainId: 1,
       abi: contract_abi,
-      address: "0x1d47861F94Fa61061CE2025d51d1Ae4c8e00775B" as Address,
+      address: "0x1d47861f94fa61061ce2025d51d1ae4c8e00775b" as Address,
       functionName: "launch",
       args: [
         false,
@@ -104,6 +104,7 @@ const LaunchForm = () => {
             label="Token Name"
             description="The full name of your new token (e.g. Ethereum)"
             placeholder="Enter name"
+            inputType="text"
             required={true}
           />
         </div>
@@ -114,6 +115,7 @@ const LaunchForm = () => {
             label="Token Symbol"
             description="The shorthand symbol (e.g. ETH)"
             placeholder="Enter symbol"
+            inputType="text"
             required={true}
             onChange={(e) => setTokenSymbol(e)}
           />

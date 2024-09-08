@@ -11,6 +11,7 @@ type InputFieldProps = {
   suffix?: string;
   required?: boolean;
   inputType?: string;
+  extention?: string;
 };
 
 const InputField = ({
@@ -24,6 +25,7 @@ const InputField = ({
   suffix,
   required,
   inputType = "text",
+  extention,
 }: InputFieldProps) => {
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
@@ -65,6 +67,10 @@ const InputField = ({
       </div>
 
       <p className="text-white/60  text-sm tracking-widest">{description}</p>
+
+      {extention && (
+        <p className="text-white text-sm tracking-widest">{extention}</p>
+      )}
     </div>
   );
 };

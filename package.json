@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.5",
     "@hookform/resolvers": "^3.9.0",
     "@tanstack/react-query": "^5.55.0",
     "@web3modal/wagmi": "^5.1.6",

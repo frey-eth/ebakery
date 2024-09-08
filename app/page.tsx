@@ -1,27 +1,28 @@
+"use client";
 import StarAnimation from "@/components/background";
+import HowItWorkModal from "@/components/how_it_work_modal";
 import LaunchForm from "@/components/launch_form/launch_form";
-import { RiContractLine } from "react-icons/ri";
+import { useState } from "react";
 
 export default function Home() {
+  const [isOpen, setOpen] = useState(false);
   return (
     <div className="min-h-screen overflow-hidden relative flex flex-col pb-6">
       <div className=" flex-col gap-2 text-lg tracking-widest lg:hidden font-pixel mx-4 w-full text-white">
         <div className="flex flex-row gap-2">
-          <a href="" target="_blank">
+          <a href="https://x.com/eBakeryfun" target="_blank">
             [twitter]
           </a>
-          <a href="" target="_blank">
+          <a href="https://www.gitbook.com/" target="_blank">
             [support]
           </a>
         </div>
 
         <div className="flex flex-row gap-2">
-          <a href="" target="_blank">
+          <a href="https://t.me/eBakeryFun" target="_blank">
             [telegram]
           </a>
-          <a href="" target="_blank">
-            [how it works]
-          </a>
+          <button onClick={() => setOpen(!isOpen)}>[how it works]</button>
         </div>
       </div>
       <div className="flex-1 flex flex-col gap-6">
@@ -38,18 +39,20 @@ export default function Home() {
             Create your own ERC-20 Token with balanced and fair Uniswap V3 curve
           </p>
 
-          <a
+          {/* <a
             href=""
             target="_blank"
             className="flex flex-row items-center gap-3 text-white font-pixel text-lg p-2 border border-purple-400 hover:bg-purple-400 hover:text-white"
           >
             <RiContractLine size={28} className="" /> Contract
-          </a>
+          </a> */}
         </div>
 
         <LaunchForm />
       </div>
       <StarAnimation />
+
+      {isOpen && <HowItWorkModal isOpen={isOpen} setOpen={setOpen} />}
     </div>
   );
 }

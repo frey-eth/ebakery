@@ -5,10 +5,11 @@ import InputField from "../field/input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useWriteContract } from "wagmi";
+import { useAccount, useBalance, useConnect, useWriteContract } from "wagmi";
 import contract_abi from "@/contract/bakery_abi.json";
 import { Address, parseEther, parseUnits } from "viem";
 import toast from "react-hot-toast";
+import { injected } from "wagmi/connectors";
 
 interface LaunchFormProps {
   tokenName: string;
@@ -55,6 +56,7 @@ const schema = yup.object().shape({
   transferLimitTime: yup
     .number()
     .min(0, "Transfer Limit Time cannot be negative")
+    .max(1440, "Transfer Limit Time cannot be more than 1440")
     .required("Transfer Limit Time is required"),
 });
 const LaunchForm = () => {
@@ -62,7 +64,12 @@ const LaunchForm = () => {
     resolver: yupResolver(schema),
   });
   const [tokenSymbol, setTokenSymbol] = useState();
-  const { writeContract, writeContractAsync, isSuccess } = useWriteContract();
+  const { writeContract, isSuccess } = useWriteContract();
+  const { connect } = useConnect();
+  const { address } = useAccount();
+  const balance = useBalance({
+    address: address,
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -70,7 +77,15 @@ const LaunchForm = () => {
     }
   }, [isSuccess]);
   const onSubmit = async (data: LaunchFormProps) => {
-    console.log(data);
+    if (!address) {
+      connect({ connector: injected() });
+      return;
+    }
+    if (balance.data?.formatted || 0 < data.instantBuyAmount) {
+      toast.error("Insufficient balance to create token");
+      return;
+    }
+
     writeContract({
       chainId: 1,
       abi: contract_abi,
@@ -125,6 +140,7 @@ const LaunchForm = () => {
         register={register}
         name="totalSupply"
         label="Total Supply"
+        placeholder="Enter total supply"
         description="Min 0.01 Max 1 quadrillion"
         inputType="number"
         required={true}
@@ -135,32 +151,39 @@ const LaunchForm = () => {
         <InputField
           register={register}
           name="initialMarketCap"
+          placeholder="Enter initial market cap"
           label="Initial Market Cap"
-          description="The Starting Market Cap for token (no need to provide ETH with this because it's on Uniswap V3)"
+          description="The Starting Market Cap for token (no need to provide ETH with this because it's on Uniswap V3)."
           inputType="number"
           required={true}
           suffix={"ETH"}
+          extention="We recommend 1 ETH
+Min 0.5 ETH Max 20 ETH"
         />
         <InputField
           register={register}
           name="upperMarketCap"
+          placeholder="Enter upper market cap"
           label="Upper Market Cap"
           defaultValue="100000000"
-          description="The upper limit of the liquidity position, having smaller numbers means the liquidity will be denser meaning more ETH will be required to move the price, larger number spread out the liquidity more and it starts to behave like a V2 Uniswap position"
+          description="The upper limit of the liquidity position, having smaller numbers means the liquidity will be denser meaning more ETH will be required to move the price, larger number spread out the liquidity more and it starts to behave like a V2 Uniswap position."
           inputType="number"
           required={true}
           suffix={"ETH"}
+          extention="Default: 100000000"
         />
       </div>
       <div className="flex flex-row gap-6">
         <InputField
           register={register}
           name="creatorFeePercent"
+          placeholder="Enter creator fee percent"
           label="Creator Fee Percent"
-          description="Have a portion of the LP sent directly to your wallet instead of being locked in the contract permanently (you can still collects fees from the locked LP though)"
+          description="Have a portion of the LP sent directly to your wallet instead of being locked in the contract permanently (you can still collects fees from the locked LP though) ${} Recommended: 0% - 5% Max: 10%"
           inputType="number"
           required={true}
           suffix={tokenSymbol}
+          extention="Recommended: 0% - 5% Max: 10%"
         />
         <InputField
           register={register}
@@ -186,10 +209,11 @@ const LaunchForm = () => {
           register={register}
           name="transferLimitTime"
           label="Transfer Limit Time (Minutes)"
-          description="Min 0.01 Max 1 quadrillion"
+          description="How many minutes to apply the transfer limit for( leaving this blank or setting it to 0 means the limit is disabled)."
           inputType="number"
           required={true}
           suffix={tokenSymbol}
+          extention="Max: 24 hours (1,440 minutes)"
         />
       </div>
 

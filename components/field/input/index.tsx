@@ -27,7 +27,7 @@ const InputField = ({
 }: InputFieldProps) => {
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
-    if (/^[0-9]*$/.test(value) == false) {
+    if (/^(?!0(\.0+)?$)\d*\.?\d+$/.test(value) == false) {
       e.preventDefault();
     }
   };
@@ -41,7 +41,8 @@ const InputField = ({
         <input
           {...(register && register(name))}
           type={inputType}
-          min={"0"}
+          min={inputType === "number" ? "0" : undefined}
+          step={inputType === "number" ? "any" : undefined}
           defaultValue={defaultValue}
           className="w-full bg-transparent border-none outline-none appearance-none"
           placeholder={placeholder}

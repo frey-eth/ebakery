@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../field/input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { resolve } from "path";
+import { useWriteContract } from "wagmi";
+import contract_abi from "@/contract/bakery_abi.json";
+import { parseEther, parseUnits } from "viem";
+import toast from "react-hot-toast";
 
 interface LaunchFormProps {
   tokenName: string;
@@ -20,28 +23,73 @@ interface LaunchFormProps {
 }
 
 const schema = yup.object().shape({
-  tokenName: yup.string().required(),
-  tokenSymbol: yup.string().required(),
-  totalSupply: yup.number().required(),
+  tokenName: yup.string().required("Token Name is required"),
+  tokenSymbol: yup.string().required("Token Symbol is required"),
+  totalSupply: yup
+    .number()
+    .min(0.01, "Total Supply must be at least 0.01")
+    .max(1e15, "Total Supply is too large")
+    .required("Total Supply is required"),
   initialMarketCap: yup
     .number()
-    .min(0.5, "Initial Market cap must be between 0.5 ETH - 20 ETH")
-    .max(20, "Initial Market cap must be between 0.5 ETH - 20 ETH")
-    .required(),
-  upperMarketCap: yup.number().min(1).required(),
-  creatorFeePercent: yup.number().required(),
-  instantBuyAmount: yup.number().required(),
-  transferLimit: yup.number().required(),
-  transferLimitTime: yup.number().required(),
+    .min(0.5, "Initial Market Cap must be between 0.5 ETH and 20 ETH")
+    .max(20, "Initial Market Cap must be between 0.5 ETH and 20 ETH")
+    .required("Initial Market Cap is required"),
+  upperMarketCap: yup
+    .number()
+    .min(1, "Upper Market Cap must be at least 1 ETH")
+    .required("Upper Market Cap is required"),
+  creatorFeePercent: yup
+    .number()
+    .min(0, "Creator Fee Percent cannot be negative")
+    .max(100, "Creator Fee Percent cannot be more than 100")
+    .required("Creator Fee Percent is required"),
+  instantBuyAmount: yup
+    .number()
+    .min(0, "Instant Buy Amount cannot be negative")
+    .required("Instant Buy Amount is required"),
+  transferLimit: yup
+    .number()
+    .min(0, "Transfer Limit cannot be negative")
+    .required("Transfer Limit is required"),
+  transferLimitTime: yup
+    .number()
+    .min(0, "Transfer Limit Time cannot be negative")
+    .required("Transfer Limit Time is required"),
 });
 const LaunchForm = () => {
   const { register, handleSubmit } = useForm<LaunchFormProps>({
     resolver: yupResolver(schema),
   });
   const [tokenSymbol, setTokenSymbol] = useState();
+  const { writeContractAsync, isSuccess } = useWriteContract();
 
-  const onSubmit = (data: LaunchFormProps) => {
-    console.log(data);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Token Created Successfully!");
+    }
+  }, [isSuccess]);
+  const onSubmit = async (data: LaunchFormProps) => {
+    const txn = await writeContractAsync({
+      abi: contract_abi,
+      address: "0xBed43A4eE4013B08e4fD6C9cde7F6E361c0b4428",
+      functionName: "launch",
+      args: [
+        true,
+        data.tokenName,
+        data.tokenSymbol,
+        BigInt(data.totalSupply),
+        BigInt(data.initialMarketCap),
+        BigInt(data.upperMarketCap),
+        BigInt(data.creatorFeePercent),
+        BigInt(data.transferLimit),
+        data.transferLimitTime,
+      ],
+
+      value: parseEther(data.instantBuyAmount.toString()),
+    });
+
+    console.log(txn);
   };
 
   return (

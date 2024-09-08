@@ -3,6 +3,7 @@ import "./globals.css";
 import AppKitProvider from "@/providers/walletconnect/web3_modal_provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "eBakery",
@@ -22,6 +23,8 @@ export default function RootLayout({
           {children}
           <Footer />
         </AppKitProvider>
+
+        <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>
   );

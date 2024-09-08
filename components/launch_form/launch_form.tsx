@@ -168,6 +168,7 @@ const LaunchForm = () => {
           inputType="number"
           required={true}
           suffix={"ETH"}
+          extention="Default: 100000000"
         />
       </div>
       <div className="flex flex-row gap-6">

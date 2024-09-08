@@ -74,7 +74,7 @@ const LaunchForm = () => {
     writeContract({
       chainId: 1,
       abi: contract_abi,
-      address: "0xb9c810bfe625e121fa0377d5aff959980e05c2da" as Address,
+      address: "0x1d47861F94Fa61061CE2025d51d1Ae4c8e00775B" as Address,
       functionName: "launch",
       args: [
         false,
@@ -87,7 +87,6 @@ const LaunchForm = () => {
         parseUnits(data.transferLimit.toString(), 18),
         data.transferLimitTime * 60,
       ],
-      maxFeePerGas: parseUnits("100", 9),
       value: parseEther(data.instantBuyAmount.toString()),
     });
   };

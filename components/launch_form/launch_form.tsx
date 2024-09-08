@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import InputField from "../field/input";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { resolve } from "path";
 
 interface LaunchFormProps {
   tokenName: string;
@@ -16,13 +19,25 @@ interface LaunchFormProps {
   transferLimitTime: number;
 }
 
+const schema = yup.object().shape({
+  tokenName: yup.string().required(),
+  tokenSymbol: yup.string().required(),
+  totalSupply: yup.number().required(),
+  initialMarketCap: yup
+    .number()
+    .min(0.5, "Initial Market cap must be between 0.5 ETH - 20 ETH")
+    .max(20, "Initial Market cap must be between 0.5 ETH - 20 ETH")
+    .required(),
+  upperMarketCap: yup.number().min(1).required(),
+  creatorFeePercent: yup.number().required(),
+  instantBuyAmount: yup.number().required(),
+  transferLimit: yup.number().required(),
+  transferLimitTime: yup.number().required(),
+});
 const LaunchForm = () => {
-  const {
-    register,
-    formState: { errors },
-    setValue,
-    handleSubmit,
-  } = useForm<LaunchFormProps>();
+  const { register, handleSubmit } = useForm<LaunchFormProps>({
+    resolver: yupResolver(schema),
+  });
   const [tokenSymbol, setTokenSymbol] = useState();
 
   const onSubmit = (data: LaunchFormProps) => {
@@ -53,7 +68,7 @@ const LaunchForm = () => {
             description="The shorthand symbol (e.g. ETH)"
             placeholder="Enter symbol"
             required={true}
-            onChange={(e) => setTokenSymbol(e.target.value)}
+            onChange={(e) => setTokenSymbol(e)}
           />
         </div>
       </div>
@@ -62,7 +77,6 @@ const LaunchForm = () => {
         name="totalSupply"
         label="Total Supply"
         description="Min 0.01 Max 1 quadrillion"
-        placeholder="Enter symbol"
         inputType="number"
         required={true}
         suffix={tokenSymbol}
@@ -74,20 +88,19 @@ const LaunchForm = () => {
           name="initialMarketCap"
           label="Initial Market Cap"
           description="The Starting Market Cap for token (no need to provide ETH with this because it's on Uniswap V3)"
-          placeholder="Enter symbol"
           inputType="number"
           required={true}
-          suffix={tokenSymbol}
+          suffix={"ETH"}
         />
         <InputField
           register={register}
           name="upperMarketCap"
           label="Upper Market Cap"
+          defaultValue="100000000"
           description="The upper limit of the liquidity position, having smaller numbers means the liquidity will be denser meaning more ETH will be required to move the price, larger number spread out the liquidity more and it starts to behave like a V2 Uniswap position"
-          placeholder="Enter symbol"
           inputType="number"
           required={true}
-          suffix={tokenSymbol}
+          suffix={"ETH"}
         />
       </div>
       <div className="flex flex-row gap-6">
@@ -96,7 +109,6 @@ const LaunchForm = () => {
           name="creatorFeePercent"
           label="Creator Fee Percent"
           description="Have a portion of the LP sent directly to your wallet instead of being locked in the contract permanently (you can still collects fees from the locked LP though)"
-          placeholder="Enter symbol"
           inputType="number"
           required={true}
           suffix={tokenSymbol}
@@ -106,7 +118,6 @@ const LaunchForm = () => {
           name="instantBuyAmount"
           label="Instant Buy Amount"
           description="ETH to be sent with the deployment which is used to instantly buy the token before sniper/bots get a chance"
-          placeholder="Enter symbol"
           inputType="number"
           required={true}
           suffix={tokenSymbol}
@@ -118,7 +129,6 @@ const LaunchForm = () => {
           name="transferLimit"
           label="Transfer Limit"
           description="Enforce a maximum transfer limit per transaction for a period of time at launch (leaving this blank or setting this to 0 means no limit)"
-          placeholder="Enter symbol"
           inputType="number"
           required={true}
           suffix={tokenSymbol}
@@ -128,7 +138,6 @@ const LaunchForm = () => {
           name="transferLimitTime"
           label="Transfer Limit Time (Minutes)"
           description="Min 0.01 Max 1 quadrillion"
-          placeholder="Enter symbol"
           inputType="number"
           required={true}
           suffix={tokenSymbol}

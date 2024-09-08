@@ -5,7 +5,7 @@ type InputFieldProps = {
   name: string;
   label: string;
   defaultValue?: string;
-  placeholder: string;
+  placeholder?: string;
   description: string;
   onChange?: (e: any) => void;
   suffix?: string;
@@ -25,9 +25,15 @@ const InputField = ({
   required,
   inputType = "text",
 }: InputFieldProps) => {
+  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
+    if (/^[0-9]*$/.test(value) == false) {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="w-full flex flex-col gap-1 f font-pixel">
-      <label className="text-white text-lg flex flex-row gap-1">
+      <label className="text-white text-lg flex flex-row gap-1 whitespace-nowrap">
         {label}
         {required && <span className=" text-red-500 font-bold text-lg">*</span>}
       </label>
@@ -39,7 +45,12 @@ const InputField = ({
           defaultValue={defaultValue}
           className="w-full bg-transparent border-none outline-none appearance-none"
           placeholder={placeholder}
-          onChange={(value) => {
+          onInput={inputType === "number" ? handleInput : undefined}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (parseFloat(value) < 0 && inputType === "number") {
+              e.target.value = "";
+            }
             if (onChange) {
               onChange(value);
             }

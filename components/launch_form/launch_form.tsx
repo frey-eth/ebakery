@@ -151,14 +151,12 @@ const LaunchForm = () => {
         <InputField
           register={register}
           name="initialMarketCap"
-          placeholder="Enter initial market cap"
+          placeholder="We recommend 1 ETH Min 0.5 ETH Max 20 ETH"
           label="Initial Market Cap"
           description="The Starting Market Cap for token (no need to provide ETH with this because it's on Uniswap V3)."
           inputType="number"
           required={true}
           suffix={"ETH"}
-          extention="We recommend 1 ETH
-Min 0.5 ETH Max 20 ETH"
         />
         <InputField
           register={register}
@@ -170,20 +168,18 @@ Min 0.5 ETH Max 20 ETH"
           inputType="number"
           required={true}
           suffix={"ETH"}
-          extention="Default: 100000000"
         />
       </div>
       <div className="flex flex-row gap-6">
         <InputField
           register={register}
           name="creatorFeePercent"
-          placeholder="Enter creator fee percent"
+          placeholder="Recommended: 0% - 5% Max: 10%"
           label="Creator Fee Percent"
           description="Have a portion of the LP sent directly to your wallet instead of being locked in the contract permanently (you can still collects fees from the locked LP though) ${} Recommended: 0% - 5% Max: 10%"
           inputType="number"
           required={true}
           suffix={tokenSymbol}
-          extention="Recommended: 0% - 5% Max: 10%"
         />
         <InputField
           register={register}

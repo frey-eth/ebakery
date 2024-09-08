@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import AppKitProvider from "@/providers/walletconnect/web3_modal_provider";
+import { ThirdwebProvider } from "thirdweb/react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
@@ -18,12 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppKitProvider>
+        <ThirdwebProvider>
           <Header />
           {children}
           <Footer />
-        </AppKitProvider>
-
+        </ThirdwebProvider>
         <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>

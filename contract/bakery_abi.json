@@ -1,9 +1,5 @@
 [
-  {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
   {
     "anonymous": false,
     "inputs": [
@@ -93,37 +89,17 @@
     "inputs": [],
     "name": "allTokens",
     "outputs": [
-      {
-        "internalType": "contract Token[]",
-        "name": "",
-        "type": "address[]"
-      }
+      { "internalType": "contract Token[]", "name": "", "type": "address[]" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "bool",
-        "name": "_deployProxy",
-        "type": "bool"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_symbol",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_totalSupply",
-        "type": "uint256"
-      },
+      { "internalType": "bool", "name": "_deployProxy", "type": "bool" },
+      { "internalType": "string", "name": "_name", "type": "string" },
+      { "internalType": "string", "name": "_symbol", "type": "string" },
+      { "internalType": "uint256", "name": "_totalSupply", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "_initialMarketCap",
@@ -134,11 +110,7 @@
         "name": "_upperMarketCap",
         "type": "uint256"
       },
-      {
-        "internalType": "uint256",
-        "name": "_creatorFee",
-        "type": "uint256"
-      },
+      { "internalType": "uint256", "name": "_creatorFee", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "_transferLimit",
@@ -151,70 +123,38 @@
       }
     ],
     "name": "launch",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "payable",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "salt",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "teamTemplate",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "template",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_index",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_index", "type": "uint256" }
     ],
     "name": "tokenAtIndex",
     "outputs": [
-      {
-        "internalType": "contract Token",
-        "name": "",
-        "type": "address"
-      }
+      { "internalType": "contract Token", "name": "", "type": "address" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -222,13 +162,7 @@
   {
     "inputs": [],
     "name": "totalTokens",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   }

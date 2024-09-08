@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputField from "../field/input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useWriteContract } from "wagmi";
-import contract_abi from "@/contract/bakery_abi.json";
-import { parseEther, parseUnits } from "viem";
-import toast from "react-hot-toast";
-
+import { ethereum } from "thirdweb/chains";
+import { client } from "@/lib/thirdweb_client";
+import { getContract, prepareContractCall, toWei } from "thirdweb";
+import { useSendTransaction } from "thirdweb/react";
 interface LaunchFormProps {
   tokenName: string;
   tokenSymbol: string;
@@ -57,39 +56,42 @@ const schema = yup.object().shape({
     .min(0, "Transfer Limit Time cannot be negative")
     .required("Transfer Limit Time is required"),
 });
+
+const contract = getContract({
+  client,
+  address: "0x1d47861F94Fa61061CE2025d51d1Ae4c8e00775B",
+  chain: ethereum,
+});
 const LaunchForm = () => {
   const { register, handleSubmit } = useForm<LaunchFormProps>({
     resolver: yupResolver(schema),
   });
   const [tokenSymbol, setTokenSymbol] = useState();
-  const { writeContractAsync, isSuccess } = useWriteContract();
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Token Created Successfully!");
-    }
-  }, [isSuccess]);
+  const { mutateAsync: sendTx, data: transactionResult } = useSendTransaction();
+
   const onSubmit = async (data: LaunchFormProps) => {
-    const txn = await writeContractAsync({
-      abi: contract_abi,
-      address: "0xBed43A4eE4013B08e4fD6C9cde7F6E361c0b4428",
-      functionName: "launch",
-      args: [
-        true,
+    const transaction = prepareContractCall({
+      contract,
+      method: `function launch(bool _deployProxy,string _name, string _symbol, uint256 _totalSupply, uint256 _initialMarketCap, uint256 _upperMarketCap, uint256 _creatorFeePercent, uint256 _transferLimit, uint256 _transferLimitTime)`,
+      params: [
+        false,
         data.tokenName,
         data.tokenSymbol,
-        BigInt(data.totalSupply),
-        BigInt(data.initialMarketCap),
-        BigInt(data.upperMarketCap),
-        BigInt(data.creatorFeePercent),
-        BigInt(data.transferLimit),
-        data.transferLimitTime,
+        toWei(data.totalSupply.toString()),
+        toWei(data.initialMarketCap.toString()),
+        toWei(data.upperMarketCap.toString()),
+        toWei(data.creatorFeePercent.toString()),
+        toWei(data.transferLimit.toString()),
+        toWei((data.transferLimitTime * 60).toString()),
       ],
 
-      value: parseEther(data.instantBuyAmount.toString()),
+      value: toWei(data.instantBuyAmount.toString()),
     });
 
-    console.log(txn);
+    console.log(transaction);
+
+    await sendTx(transaction);
   };
 
   return (

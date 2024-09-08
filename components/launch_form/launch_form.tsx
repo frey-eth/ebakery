@@ -151,7 +151,7 @@ const LaunchForm = () => {
         <InputField
           register={register}
           name="initialMarketCap"
-          placeholder="We recommend 1 ETH Min 0.5 ETH Max 20 ETH"
+          placeholder="Min 0.5 ETH Max 20 ETH, We recommend 1 ETH"
           label="Initial Market Cap"
           description="The Starting Market Cap for token (no need to provide ETH with this because it's on Uniswap V3)."
           inputType="number"

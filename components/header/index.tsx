@@ -39,11 +39,9 @@ const Header = () => {
               <a href="https://t.me/eBakeryFun" target="_blank">
                 [telegram]
               </a>
-              <button
-                onClick={() => {
-                  setOpen(!isOpen);
-                }}
-              >
+              <button onClick={()=> {
+                setOpen(!isOpen)
+              }}>
                 [how it works]
               </button>
             </div>

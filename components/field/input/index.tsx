@@ -46,7 +46,7 @@ const InputField = ({
           min={inputType === "number" ? "0" : undefined}
           step={inputType === "number" ? "any" : undefined}
           defaultValue={defaultValue}
-          className="w-full bg-transparent border-none outline-none appearance-none  tracking-wider"
+          className="w-full bg-transparent border-none outline-none appearance-none tracking-wider"
           placeholder={placeholder}
           onInput={inputType === "number" ? handleInput : undefined}
           onChange={(e) => {

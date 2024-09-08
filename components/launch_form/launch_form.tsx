@@ -177,7 +177,7 @@ const LaunchForm = () => {
           name="creatorFeePercent"
           placeholder="Recommended: 0% - 5% Max: 10%"
           label="Creator Fee Percent"
-          description="Have a portion of the LP sent directly to your wallet instead of being locked in the contract permanently (you can still collects fees from the locked LP though) ${} Recommended: 0% - 5% Max: 10%"
+          description="Have a portion of the LP sent directly to your wallet instead of being locked in the contract permanently (you can still collects fees from the locked LP though)"
           inputType="number"
           required={true}
           suffix={tokenSymbol}

@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import StarAnimation from "@/components/background";
 import HowItWorkModal from "@/components/how_it_work_modal";
 import LaunchForm from "@/components/launch_form/launch_form";
@@ -52,7 +52,7 @@ export default function Home() {
       </div>
       <StarAnimation />
 
-      {isOpen && <HowItWorkModal isOpen={isOpen} setOpen={setOpen} />}
+      {isOpen && <HowItWorkModal isOpen setOpen={setOpen} />}
     </div>
   );
 }

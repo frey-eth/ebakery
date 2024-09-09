@@ -5,7 +5,7 @@ import logo_image from "@/public/images/logo.png";
 import Image from "next/image";
 import { injected } from "wagmi/connectors";
 import { useState } from "react";
-import HowItWorkModal from "../how_it_work_modal";
+import HowItWorkModal from "../home/how_it_work_modal";
 
 const Header = () => {
   const { connect } = useConnect();
@@ -39,9 +39,11 @@ const Header = () => {
               <a href="https://t.me/eBakeryFun" target="_blank">
                 [telegram]
               </a>
-              <button onClick={()=> {
-                setOpen(!isOpen)
-              }}>
+              <button
+                onClick={() => {
+                  setOpen(!isOpen);
+                }}
+              >
                 [how it works]
               </button>
             </div>

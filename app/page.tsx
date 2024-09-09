@@ -1,7 +1,8 @@
-'use client'
-import StarAnimation from "@/components/background";
-import HowItWorkModal from "@/components/how_it_work_modal";
-import LaunchForm from "@/components/launch_form/launch_form";
+"use client";
+import StarAnimation from "@/components/home/background";
+import HowItWorkModal from "@/components/home/how_it_work_modal";
+import LaunchForm from "@/components/home/launch_form/launch_form";
+import TokenLaunched from "@/components/home/token_launched";
 import { useState } from "react";
 
 export default function Home() {
@@ -49,6 +50,8 @@ export default function Home() {
         </div>
 
         <LaunchForm />
+
+        <TokenLaunched />
       </div>
       <StarAnimation />
 

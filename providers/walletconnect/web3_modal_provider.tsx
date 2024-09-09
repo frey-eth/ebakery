@@ -29,8 +29,8 @@ export default function AppKitProvider({
   initialState?: State;
 }) {
   return (
-    <WagmiProvider config={web3_config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <WagmiProvider config={web3_config} initialState={initialState} >
+      <QueryClientProvider  client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
 }

@@ -68,9 +68,21 @@ const TokenLaunched = () => {
       {!isFetching ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {listTokenInfo.map((token: TokenInfo, index) => (
-            <div key={index} className="bg-gray-800 p-4 rounded-lg shadow-md text-ellipsis overflow-hidden">
-              <h2 className="text-xl font-semibold">{token.name}</h2>
-              <p className="text-gray-400">{token.symbol}</p>
+            <a
+              target="_blank"
+              href={`https://dexscreener.com/ethereum/${token.address}`}
+              key={index}
+              className="bg-black/60 p-4 rounded-lg shadow-md text-ellipsis overflow-hidden font-pixel tracking-wider"
+            >
+              <div
+                className="flex flex-col"
+                style={{ color: getRandomColor() }}
+              >
+                <h2 className="text-xl font-bold">{token.name}</h2>
+                <p className="text-gray-400 font-mono font-bold">
+                  ${token.symbol}
+                </p>
+              </div>
               <p className="text-gray-300">{token.address}</p>
               <p className="mt-2">
                 Total Supply: {token.total_supply_formatted}
@@ -78,11 +90,13 @@ const TokenLaunched = () => {
               <p>
                 Created At: {new Date(token.created_at).toLocaleDateString()}
               </p>
-            </div>
+            </a>
           ))}
         </div>
       ) : (
-        <p className="text-center text-2xl text-white font-pixel font-bold">Loading...</p>
+        <p className="text-center text-2xl text-white font-pixel font-bold">
+          Loading...
+        </p>
       )}
 
       {/* Pagination controls */}
@@ -110,3 +124,12 @@ const TokenLaunched = () => {
 };
 
 export default TokenLaunched;
+
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};

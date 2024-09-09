@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-type HowItWorkModalProps = {
+type CollectFeeModalProps = {
   isOpen: boolean;
   setOpen: (value: boolean) => void;
 };
-const HowItWorkModal = ({ isOpen, setOpen }: HowItWorkModalProps) => {
+const CollectFeeModal = ({ isOpen, setOpen }: CollectFeeModalProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
@@ -37,7 +37,7 @@ const HowItWorkModal = ({ isOpen, setOpen }: HowItWorkModalProps) => {
                   as="h3"
                   className="text-lg font-medium leading-6 font-acarde "
                 >
-                  How It Work
+                  How To Collect Trading Fees
                 </Dialog.Title>
                 <div className="mt-2">
                   <div className="flex flex-row justify-center p-3 w-full">
@@ -50,22 +50,10 @@ const HowItWorkModal = ({ isOpen, setOpen }: HowItWorkModalProps) => {
                     </div>
                   </div>
                   <div className="text-sm text-gray-500 flex flex-col gap-2 ">
-                    Every token that comes out of the eBakery is renounced
-                    /ownerless right on launch. <br /> No rugs, LP automatically
-                    and permanently locked. The great thing about eBakery is
-                    that you don't need to provide any ETH for liquidity. <br />{" "}
-                    We recommend 1 ETH. Earn long-term LP trading fees while LPs
-                    are permanently locked, supporting community growth. <br />{" "}
-                    <div className="flex md:flex-row flex-col gap-1 whitespace-nowrap">
-                      Read full on our Gitbook:
-                      <a
-                        href="https://gitbook.ebakery.fun/"
-                        target="_blank"
-                        className="text-white"
-                      >
-                        https://gitbook.ebakery.fun/
-                      </a>
-                    </div>
+                    1. Go to Smart Contract <br /> 2. Select Write Contract as
+                    Proxy <br /> 3. Connect to Web3 with Etherscan <br /> 4.
+                    Select item number "2. collectTradingFees" <br /> 5. Click
+                    "Wire" and Confirm
                   </div>
                 </div>
 
@@ -87,4 +75,4 @@ const HowItWorkModal = ({ isOpen, setOpen }: HowItWorkModalProps) => {
   );
 };
 
-export default HowItWorkModal;
+export default CollectFeeModal;

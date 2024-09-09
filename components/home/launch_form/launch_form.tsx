@@ -171,7 +171,7 @@ const LaunchForm = () => {
           extention="Default: 100000000"
         />
       </div>
-      <div className="flex flex-row gap-6">
+      <div className="flex gap-6 md:flex-row flex-col">
         <InputField
           register={register}
           name="creatorFeePercent"
@@ -192,11 +192,11 @@ const LaunchForm = () => {
           suffix={tokenSymbol}
         />
       </div>
-      <div className="flex flex-row gap-6">
+      <div className="flex md:flex-row flex-col gap-6">
         <InputField
           register={register}
           name="transferLimit"
-          label="Transfer Limit"
+          label="Transfer Limit (MaxTXAmount)"
           description="Enforce a maximum transfer limit per transaction for a period of time at launch (leaving this blank or setting this to 0 means no limit)"
           inputType="number"
           required={true}

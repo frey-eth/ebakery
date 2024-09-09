@@ -37,7 +37,12 @@ const TokenLaunched = () => {
     setIsFetching(true);
     const res = await getTokenInfo(paginatedTokens);
     if (res) {
-      setListTokenInfo(res);
+      const sortedTokens = res.sort(
+        (a: TokenInfo, b: TokenInfo) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+
+      setListTokenInfo(sortedTokens);
     }
     setIsFetching(false);
   };
@@ -59,7 +64,7 @@ const TokenLaunched = () => {
   };
 
   return (
-    <div className="p-6  text-white">
+    <div className="p-6 text-white h-full flex flex-col">
       <h1 className="animate-color-change font-acarde text-center text-3xl mb-6">
         Token Launched
       </h1>
@@ -88,13 +93,21 @@ const TokenLaunched = () => {
                 Total Supply: {token.total_supply_formatted}
               </p>
               <p>
-                Created At: {new Date(token.created_at).toLocaleDateString()}
+                Created At:{" "}
+                {new Date(token.created_at).toLocaleString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
               </p>
             </a>
           ))}
         </div>
       ) : (
-        <p className="text-center text-2xl text-white font-pixel font-bold">
+        <p className="text-center text-2xl text-white font-pixel font-bold flex-1 h-full">
           Loading...
         </p>
       )}

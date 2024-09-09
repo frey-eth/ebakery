@@ -92,7 +92,7 @@ const LaunchForm = () => {
       address: "0x1d47861f94fa61061ce2025d51d1ae4c8e00775b" as Address,
       functionName: "launch",
       args: [
-        false,
+        true,
         data.tokenName,
         data.tokenSymbol,
         parseUnits(data.totalSupply.toString(), 18),

@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div className="w-full lg:p-5 p-1 flex items-center justify-center text-white">
       <div className="flex flex-row items-start w-full md:border-2 md:border-white/20 rounded-md lg:p-4 p-2 font-pixel justify-between md:items-center">
-        <div className="flex flex-row items-center gap-2 w-full">
+        <div className="flex flex-row items-center gap-2">
           <Link href={"/"} className="flex flex-col md:flex-row items-center">
             <div className="md:h-16 md:w-20 h-8 w-10 relative">
               <Image src={logo_image} alt="logo" objectFit="cover" fill />
@@ -65,7 +65,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="flex flex-row md:gap-2 gap-1 items-center justify-center">
+        <div className="flex-1 flex w-full items-center justify-center md:justify-end">
           {currentPath == "/token-launched" ? (
             <Link
               className="font-bold px-3 py-1 md:text-3xl whitespace-nowrap flex flex-row gap-2 items-center"
@@ -93,17 +93,18 @@ const Header = () => {
               </div>
             </Link>
           )}
-          <button
-            className="lg:px-3 px-2 lg:text-[20px] lg:py-2 border tracking-wider whitespace-nowrap"
-            onClick={() => {
-              open();
-            }}
-          >
-            {isConnected
-              ? `${address?.slice(0, 6)}...${address?.slice(-6)}`
-              : "Connect Wallet"}
-          </button>
         </div>
+
+        <button
+          className="lg:px-3 px-2 lg:text-[20px] lg:py-2 border tracking-wider whitespace-nowrap"
+          onClick={() => {
+            open();
+          }}
+        >
+          {isConnected
+            ? `${address?.slice(0, 6)}...${address?.slice(-6)}`
+            : "Connect Wallet"}
+        </button>
       </div>
       {isOpen && <HowItWorkModal isOpen={isOpen} setOpen={setOpen} />}
       {isOpenCollect && (

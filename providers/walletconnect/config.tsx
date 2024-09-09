@@ -2,6 +2,7 @@ import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { cookieStorage, createStorage } from "wagmi";
 import { mainnet, sepolia } from "wagmi/chains";
+import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 
 export const projectId = "5dfe6b82a1607c16e497388fe32881c2";
 

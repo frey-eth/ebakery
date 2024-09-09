@@ -10,10 +10,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GrWaypoint } from "react-icons/gr";
 import CollectFeeModal from "../home/collect_fee_modal";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 const Header = () => {
-  const { connect } = useConnect();
   const { disconnect } = useDisconnect();
+  const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
   const [isOpen, setOpen] = useState(false);
   const [isOpenCollect, setOpenCollect] = useState(false);
@@ -23,7 +24,7 @@ const Header = () => {
     <div className="w-full lg:p-5 p-1 flex items-center justify-center text-white">
       <div className="flex flex-row items-start w-full md:border-2 md:border-white/20 rounded-md lg:p-4 p-2 font-pixel justify-between md:items-center">
         <div className="flex flex-row items-center gap-2 w-full">
-          <Link href={'/'} className="flex flex-col md:flex-row items-center">
+          <Link href={"/"} className="flex flex-col md:flex-row items-center">
             <div className="md:h-16 md:w-20 h-8 w-10 relative">
               <Image src={logo_image} alt="logo" objectFit="cover" fill />
             </div>
@@ -95,11 +96,7 @@ const Header = () => {
           <button
             className="lg:px-3 px-2 lg:text-[20px] lg:py-2 border tracking-wider whitespace-nowrap"
             onClick={() => {
-              if (!isConnected) {
-                connect({ connector: injected() });
-              } else {
-                disconnect();
-              }
+              open();
             }}
           >
             {isConnected

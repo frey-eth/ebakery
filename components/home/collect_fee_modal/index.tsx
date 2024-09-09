@@ -53,7 +53,7 @@ const CollectFeeModal = ({ isOpen, setOpen }: CollectFeeModalProps) => {
                     1. Go to Smart Contract <br /> 2. Select Write Contract as
                     Proxy <br /> 3. Connect to Web3 with Etherscan <br /> 4.
                     Select item number "2. collectTradingFees" <br /> 5. Click
-                    "Wire" and Confirm
+                    "Write" and Confirm
                   </div>
                 </div>
 

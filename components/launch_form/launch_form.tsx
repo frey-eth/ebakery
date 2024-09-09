@@ -81,7 +81,7 @@ const LaunchForm = () => {
       connect({ connector: injected() });
       return;
     }
-    if (balance.data?.formatted || 0 < data.instantBuyAmount) {
+    if (Number(balance.data?.formatted) < data.instantBuyAmount) {
       toast.error("Insufficient balance to create token");
       return;
     }

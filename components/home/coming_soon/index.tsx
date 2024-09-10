@@ -33,10 +33,10 @@ const CommingSoon = ({ isOpen, setOpen }: CommingSoonProps) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full  flex items-center justify-center max-w-md transform overflow-hidden p-6 text-left align-middle shadow-xl transition-all">
-                <div className="flex items-center justify-center p-2 border-2 bg-black">
+                <div className="flex items-center justify-center p-2 border-[4px] border-purple-500 bg-white">
                   <button
                     type="button"
-                    className=" whitespace-normal animate-color-change font-acarde border-2 border-white text-white px-4 py-2"
+                    className=" whitespace-normal text-black font-acarde border-2 border-white px-4 py-2"
                     onClick={() => setOpen(false)}
                   >
                     Coming Soon

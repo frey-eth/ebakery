@@ -11,7 +11,7 @@ export default function Home() {
     <div className="min-h-screen overflow-hidden relative flex flex-col pb-6">
       <div className=" flex-col gap-2 text-lg tracking-widest lg:hidden font-pixel mx-4 w-full text-white">
         <div className="flex flex-row gap-3">
-          <a href="https://x.com/eBakeryfun" target="_blank">
+          <a href="https://x.com/eBakeryfunX" target="_blank">
             [twitter]
           </a>
           <a href="https://gitbook.ebakery.fun/" target="_blank">

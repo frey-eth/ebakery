@@ -34,7 +34,7 @@ const Header = () => {
           </Link>
           <div className="lg:flex flex-col gap-2 text-lg hidden tracking-widest mx-4">
             <div className="flex flex-row gap-3">
-              <a href="https://x.com/eBakeryfun" target="_blank">
+              <a href="https://x.com/eBakeryfunX" target="_blank">
                 [twitter]
               </a>
               <a href="https://gitbook.ebakery.fun/" target="_blank">

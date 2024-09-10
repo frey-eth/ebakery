@@ -10,6 +10,7 @@ import contract_abi from "@/contract/bakery_abi.json";
 import { Address, parseEther, parseUnits } from "viem";
 import toast from "react-hot-toast";
 import { injected } from "wagmi/connectors";
+import CommingSoon from "../coming_soon";
 
 interface LaunchFormProps {
   tokenName: string;
@@ -65,6 +66,7 @@ const LaunchForm = () => {
   });
   const [tokenSymbol, setTokenSymbol] = useState();
   const { writeContract, isSuccess } = useWriteContract();
+  const [isMevBot, setIsMevBot] = useState(false);
   const { connect } = useConnect();
   const { address } = useAccount();
   const balance = useBalance({
@@ -214,7 +216,15 @@ const LaunchForm = () => {
         />
       </div>
 
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-between">
+        <div
+          onClick={() => {
+            setIsMevBot(true);
+          }}
+          className="text-black px-3 cursor-pointer py-1 bg-white font-acarde font-bold"
+        >
+          MEV Bot
+        </div>
         <button
           disabled={true}
           type="submit"
@@ -223,6 +233,8 @@ const LaunchForm = () => {
           Create
         </button>
       </div>
+
+      {isMevBot && <CommingSoon isOpen={isMevBot} setOpen={setIsMevBot} />}
     </form>
   );
 };

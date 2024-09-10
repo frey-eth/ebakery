@@ -14,7 +14,7 @@ export default function Home() {
           <a href="https://x.com/eBakeryfun" target="_blank">
             [twitter]
           </a>
-          <a href="https://www.gitbook.com/" target="_blank">
+          <a href="https://gitbook.ebakery.fun/" target="_blank">
             [support]
           </a>
 
@@ -61,7 +61,9 @@ export default function Home() {
       </div>
 
       {isOpen && <HowItWorkModal isOpen setOpen={setOpen} />}
-      {isOpenCollect && <CollectFeeModal isOpen={isOpenCollect} setOpen={setOpenCollect} />}
+      {isOpenCollect && (
+        <CollectFeeModal isOpen={isOpenCollect} setOpen={setOpenCollect} />
+      )}
     </div>
   );
 }

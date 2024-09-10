@@ -15,7 +15,7 @@ const TokenLaunched = () => {
 
   const { data: listAddress, isLoading } = useReadContract({
     abi,
-    address: "0xb4fb5cc908e0cd59bc16a55960a8a116e21dc646" as Address,
+    address: "0x1d47861f94fa61061ce2025d51d1ae4c8e00775b" as Address,
     functionName: "allTokens",
     args: [],
   }) as any;
@@ -113,25 +113,27 @@ const TokenLaunched = () => {
       )}
 
       {/* Pagination controls */}
-      <div className="flex flex-row items-center justify-center gap-4 mt-6">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 disabled:bg-gray-600"
-        >
-          Previous
-        </button>
-        <span className="text-lg">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 disabled:bg-gray-600"
-        >
-          Next
-        </button>
-      </div>
+      {totalPages > 0 && (
+        <div className="flex flex-row items-center justify-center gap-4 mt-6">
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            className="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 disabled:bg-gray-600"
+          >
+            Previous
+          </button>
+          <span className="text-lg">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 disabled:bg-gray-600"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

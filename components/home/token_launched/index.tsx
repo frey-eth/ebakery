@@ -31,19 +31,12 @@ const TokenLaunched = () => {
 
     const startIndex = (currentPage - 1) * tokensPerPage;
     const endIndex = startIndex + tokensPerPage;
-
-    const paginatedTokens = listAddress.slice(startIndex, endIndex);
+    
+    const paginatedTokens = listAddress.reverse().slice(startIndex, endIndex);
 
     setIsFetching(true);
     const res = await getTokenInfo(paginatedTokens);
-    if (res) {
-      const sortedTokens = res.sort(
-        (a: TokenInfo, b: TokenInfo) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
-
-      setListTokenInfo(sortedTokens);
-    }
+    setListTokenInfo(res);
     setIsFetching(false);
   };
 
@@ -92,17 +85,7 @@ const TokenLaunched = () => {
               <p className="mt-2">
                 Total Supply: {token.total_supply_formatted}
               </p>
-              <p>
-                Created At:{" "}
-                {new Date(token.created_at).toLocaleString("en-GB", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: false,
-                })}
-              </p>
+              
             </a>
           ))}
         </div>

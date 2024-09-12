@@ -190,6 +190,7 @@ const LaunchForm = () => {
           inputType="number"
           required={true}
           suffix={tokenSymbol}
+          extention="Max: 0.2 ETH"
         />
       </div>
       <div className="flex md:flex-row flex-col gap-6">

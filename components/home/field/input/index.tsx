@@ -4,6 +4,7 @@ type InputFieldProps = {
   register?: any;
   name: string;
   label: string;
+  errors?: any;
   defaultValue?: string;
   placeholder?: string;
   description: string;
@@ -18,6 +19,7 @@ const InputField = ({
   register,
   name,
   label,
+  errors,
   placeholder,
   defaultValue,
   description,
@@ -70,6 +72,12 @@ const InputField = ({
 
       {extention && (
         <p className="text-white text-sm tracking-widest">{extention}</p>
+      )}
+
+      {errors && errors.type === "required" && (
+        <p className="text-red-500 text-sm tracking-widest">
+          {errors.message || "This field is required"}
+        </p>
       )}
     </div>
   );

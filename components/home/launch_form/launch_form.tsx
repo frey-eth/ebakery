@@ -48,6 +48,7 @@ const schema = yup.object().shape({
   instantBuyAmount: yup
     .number()
     .min(0, "Instant Buy Amount cannot be negative")
+    .max(0.21, "Instant Buy Amount cannot be more than 0.2")
     .required("Instant Buy Amount is required"),
   transferLimit: yup
     .number()
@@ -60,7 +61,7 @@ const schema = yup.object().shape({
     .required("Transfer Limit Time is required"),
 });
 const LaunchForm = () => {
-  const { register, handleSubmit } = useForm<LaunchFormProps>({
+  const { register, handleSubmit , formState : {errors}} = useForm<LaunchFormProps>({
     resolver: yupResolver(schema),
   });
   const [tokenSymbol, setTokenSymbol] = useState();
@@ -121,6 +122,7 @@ const LaunchForm = () => {
             placeholder="Enter name"
             inputType="text"
             required={true}
+            errors={errors.tokenName}
           />
         </div>
         <div className="flex-1">
@@ -133,6 +135,7 @@ const LaunchForm = () => {
             inputType="text"
             required={true}
             onChange={(e) => setTokenSymbol(e)}
+            errors={errors.tokenSymbol}
           />
         </div>
       </div>
@@ -145,6 +148,7 @@ const LaunchForm = () => {
         inputType="number"
         required={true}
         suffix={tokenSymbol}
+        errors={errors.totalSupply}
       />
 
       <div className="flex lg:flex-row flex-col gap-2 lg:gap-6">
@@ -157,6 +161,7 @@ const LaunchForm = () => {
           inputType="number"
           required={true}
           suffix={"ETH"}
+          errors={errors.initialMarketCap}
         />
         <InputField
           register={register}
@@ -169,6 +174,7 @@ const LaunchForm = () => {
           required={true}
           suffix={"ETH"}
           extention="Default: 100000000"
+          errors={errors.upperMarketCap}
         />
       </div>
       <div className="flex gap-6 md:flex-row flex-col">
@@ -181,6 +187,7 @@ const LaunchForm = () => {
           inputType="number"
           required={true}
           suffix={tokenSymbol}
+          
         />
         <InputField
           register={register}
@@ -191,6 +198,7 @@ const LaunchForm = () => {
           required={true}
           suffix={tokenSymbol}
           extention="Max: 0.2 ETH"
+          errors={errors.instantBuyAmount}
         />
       </div>
       <div className="flex md:flex-row flex-col gap-6">
@@ -202,6 +210,7 @@ const LaunchForm = () => {
           inputType="number"
           required={true}
           suffix={tokenSymbol}
+          errors={errors.transferLimit}
         />
         <InputField
           register={register}
@@ -212,6 +221,7 @@ const LaunchForm = () => {
           required={true}
           suffix={tokenSymbol}
           extention="Max: 24 hours (1,440 minutes)"
+          errors={errors.transferLimitTime}
         />
       </div>
 
